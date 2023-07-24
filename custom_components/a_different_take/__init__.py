@@ -1,8 +1,8 @@
-DOMAIN = "a_different_take"
+from .const import DOMAIN
 
 
 async def async_setup(hass, config):
-    hass.states.async_set("a_different_take.world", "Dean")
+    hass.states.async_set(DOMAIN+".world", "Dean")
 
     # Return boolean to indicate that initialization was successful.
     return True
