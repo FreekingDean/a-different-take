@@ -1,0 +1,11 @@
+{
+  "domain": "a_different_take",
+  "name": "A different take",
+  "documentation": "https://github.com/FreekingDean/a-different-take/README.md",
+  "issue_tracker": "https://github.com/FreekingDean/a-different-take/issues",
+  "dependencies": ["lovelace", "http", "frontend"],
+  "codeowners": ["@FreekingDean"],
+  "config_flow": true,
+  "version": "0.0.1",
+  "iot_class": "calculated"
+}
