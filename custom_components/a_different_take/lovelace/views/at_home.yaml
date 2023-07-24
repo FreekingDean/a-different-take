@@ -1,0 +1,46 @@
+type: grid
+title: At Home
+view_layout:
+  grid-area: at_home
+columns: 2
+cards:
+
+  - type: custom:button-card
+    entity: person.dean_galvin
+    name: Dean
+    triggers_update:
+      - sensor.dean_galvin_last_changed
+    tap_action:
+      !include ../popup/at_home_dean.yaml
+    variables:
+      retain: sensor.dean_galvin_last_changed
+    template: person
+
+  - type: custom:button-card
+    entity: person.brittany
+    name: Brittany
+    triggers_update:
+      - sensor.brittany_last_changed
+    tap_action:
+      !include ../popup/at_home_brittany.yaml
+    variables:
+      retain: sensor.brittany_last_changed
+    template: person
+
+  - type: custom:button-card
+    entity: script.home_leave
+    name: Stäng allt
+    hold_action:
+      action: none
+    template:
+      - base
+      - icon_away
+
+  - type: custom:button-card
+    entity: script.home_arrive
+    name: At Home
+    hold_action:
+      action: none
+    template:
+      - base
+      - icon_home

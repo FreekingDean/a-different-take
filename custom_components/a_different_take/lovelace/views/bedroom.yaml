@@ -1,0 +1,39 @@
+type: grid
+title: Home
+view_layout:
+  grid-area: bedroom
+columns: 2
+cards:
+
+  - type: custom:button-card
+    entity: climate.thermostat
+    name: Climate
+    tap_action:
+      !include ../popup/bedroom_climate.yaml
+    template:
+      - base
+      - icon_climate
+      - circle
+    variables:
+      circle_input_unit: '°F'
+      circle_input: >
+        [[[
+          if (entity) {
+              return entity.state === 'cool'
+                  ? Math.round(entity.attributes.temperature).toString()
+                  : Math.round(entity.attributes.current_temperature).toString();
+          }
+        ]]]
+  - type: custom:button-card
+    entity: cover.garage_door
+    name: Garage
+    template:
+      - base
+      - loader
+      - icon_garage
+  - type: custom:button-card
+    entity: light.bulb_6_multi_color
+    name: Front Yard
+    template:
+      - light
+      - icon_spot

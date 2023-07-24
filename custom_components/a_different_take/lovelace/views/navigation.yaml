@@ -1,0 +1,10 @@
+type: grid
+title: Views
+view_layout:
+  grid-area: views
+columns: 2
+cards:
+  - type: custom:button-card
+    name: Main
+    template:
+      - navigation

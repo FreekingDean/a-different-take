@@ -1,0 +1,26 @@
+type: grid
+title: Cameras
+view_layout:
+  grid-area: cameras
+columns: 1
+cards:
+  - type: grid
+    columns: 2
+    cards:
+      - type: custom:button-card
+        entity: camera.kitchen_display
+        name: Kitchen
+        template:
+          - camera
+
+      - type: custom:button-card
+        entity: camera.front_door_high
+        name: Front Door
+        template:
+          - camera
+
+      - type: custom:button-card
+        entity: camera.back_door_high
+        name: Back Door
+        template:
+          - camera

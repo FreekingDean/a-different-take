@@ -1,0 +1,19 @@
+type: grid
+title: Deans Office
+view_layout:
+  grid-area: deans_office
+columns: 2
+cards:
+  - type: custom:button-card
+    entity: light.ge_enbrighten_z_wave_plus_smart_dimmer
+    name: Ceiling Fan
+    template:
+      - light
+      - icon_fan2
+  - type: custom:button-card
+    entity: switch.smart_switch_6
+    name: Aquarium Light
+    template:
+      - base
+      - loader
+      - icon_tv

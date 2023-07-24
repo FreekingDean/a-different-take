@@ -1,0 +1,19 @@
+type: grid
+title: Dining Room
+view_layout:
+  grid-area: dining_room
+columns: 2
+cards:
+  - type: custom:button-card
+    entity: light.dining_table_group
+    name: Dining Table Light
+    template:
+      - light
+      - icon_shade
+
+  - type: custom:button-card
+    entity: switch.dining_room_lamp
+    name: Dining Room Lamp
+    template:
+      - light
+      - icon_lamp

@@ -1,0 +1,21 @@
+type: grid
+title: Bathroom
+view_layout:
+  grid-area: bathroom
+columns: 2
+cards:
+
+  - type: custom:button-card
+    entity: light.bathroom_motion_dimmer
+    name: Lights
+    template:
+      - light
+      - icon_spot
+
+  - type: custom:button-card
+    entity: switch.bathroom_fan
+    name: "Fan"
+    template:
+      - base
+      - icon_fan2
+      - loader

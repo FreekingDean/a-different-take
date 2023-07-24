@@ -1,0 +1,27 @@
+type: grid
+title: Kitchen
+view_layout:
+  grid-area: kitchen
+columns: 2
+cards:
+
+  - type: custom:button-card
+    entity: light.kitchen_island_lights
+    name: High Hats
+    template:
+      - light
+      - icon_spot
+
+  - type: custom:button-card
+    entity: switch.kitchen_fan
+    name: "Fan"
+    template:
+      - base
+      - icon_fan2
+      - loader
+  - type: custom:button-card
+    entity: light.cabinet
+    name: "Cabinet"
+    template:
+      - light
+      - icon_strip

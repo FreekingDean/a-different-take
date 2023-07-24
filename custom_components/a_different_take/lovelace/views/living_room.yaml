@@ -1,0 +1,37 @@
+type: grid
+title: Living Room
+view_layout:
+  grid-area: living_room
+columns: 2
+cards:
+  - type: custom:button-card
+    entity: light.living_room_lights
+    name: Ceiling Lights
+    template:
+      - light
+      - icon_spot
+
+  - type: custom:button-card
+    entity: light.tv
+    name: TV Lights
+    template:
+      - light
+      - icon_lamp
+  - type: custom:button-card
+    entity: media_player.lg_webos_smart_tv
+    name: Tv
+    state_display: >
+      [[[
+        if (variables.state === 'playing') {
+          return variables.translate_playing;
+        }
+        if (variables.state === true) {
+          return variables.translate_unknown;
+        }
+      ]]]
+    hold_action:
+      !include ../popup/living_room_tv.yaml
+    template:
+      - base
+      - icon_tv
+      - loader

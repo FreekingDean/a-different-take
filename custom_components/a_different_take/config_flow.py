@@ -1,5 +1,5 @@
 from homeassistant import config_entries
-from .const import DOMAIN, VERSION
+from .const import DOMAIN
 
 
 class ADifferentTakeConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):

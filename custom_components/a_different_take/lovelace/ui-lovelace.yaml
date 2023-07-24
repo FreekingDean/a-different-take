@@ -1,0 +1,222 @@
+button_card_templates:
+  !include_dir_merge_named button_card_templates
+
+theme: tablet
+
+views:
+  - type: custom:grid-layout
+    theme: tablet
+    path: 0
+    layout:
+      #default
+      margin: 0
+      grid-gap: var(--custom-layout-card-padding)
+      grid-template-columns: repeat(4, 1fr) 0
+      grid-template-rows: repeat(2, fit-content(100%)) 1fr
+      grid-template-areas: |
+        "sidebar  main main main ."
+        "sidebar  main main main ."
+        "sidebar  footer footer footer  ."
+      mediaquery:
+        #phone
+        "(max-width: 800px)":
+          grid-gap: calc(var(--custom-layout-card-padding) * 1.7)
+          grid-template-columns: 0 repeat(2, 1fr) 0
+          grid-template-rows: 0 repeat(5, fit-content(100%)) 0fr
+          grid-template-areas: |
+            ".  .             .        ."
+            ".  sidebar       sidebar  ."
+            ".  main  main  ."
+            ".  main  main ."
+            ".  main  main  ."
+            ".  footer        footer   ."
+            ".  .             .        ."
+        #portrait
+        "(max-width: 1200px)":
+          grid-gap: var(--custom-layout-card-padding)
+          grid-template-columns: repeat(3, 1fr) 0
+          grid-template-rows: 0 repeat(3, fit-content(100%)) 0fr
+          grid-template-areas: |
+            "sidebar  .            .        ."
+            "sidebar  main  main  ."
+            "sidebar  main  main ."
+            "sidebar  main  main  ."
+            "sidebar  footer       footer   ."
+            "sidebar  .            .        ."
+    cards:
+
+      - type: custom:button-card #extra_styles fix
+        styles: {card: [display: none]}
+
+      #################################################
+      #                                               #
+      #                    SIDEBAR                    #
+      #                                               #
+      #################################################
+
+      - type: vertical-stack
+        view_layout:
+          grid-area: sidebar
+        cards:
+
+          - type: custom:button-card
+            entity: sensor.template_sidebar
+            template: sidebar
+
+      - type: custom:swipe-card
+        view_layout:
+          grid-area: main
+        parameters:
+          speed: 550
+          spaceBetween: 40
+          threshold: 5
+        cards:
+        - type: custom:layout-card
+          layout_type: custom:grid-layout
+          layout:
+            margin: 0
+            grid-gap: var(--custom-layout-card-padding)
+            grid-template-columns: repeat(3, 1fr)
+            grid-template-rows: repeat(2, fit-content(100%))
+            grid-template-areas: |
+              "living_room dining_room bedroom"
+              "media cameras at_home"
+          cards:
+            - !include views/living_room.yaml
+            - !include views/dining_room.yaml
+            - !include views/bedroom.yaml
+            - !include views/cameras.yaml
+            - !include views/at_home.yaml
+            - !include views/media.yaml
+        - type: custom:layout-card
+          layout_type: custom:grid-layout
+          layout:
+            margin: 0
+            grid-gap: var(--custom-layout-card-padding)
+            grid-template-columns: repeat(3, 1fr)
+            grid-template-rows: repeat(2, fit-content(100%))
+            grid-template-areas: |
+              "kitchen deans_office bedroom"
+              "media bathroom at_home"
+          cards:
+            - !include views/kitchen.yaml
+            - !include views/deans_office.yaml
+            - !include views/bedroom.yaml
+            - !include views/bathroom.yaml
+            - !include views/at_home.yaml
+            - !include views/media.yaml
+      #################################################
+      #                                               #
+      #                    FOOTER                     #
+      #                                               #
+      #################################################
+
+      - type: horizontal-stack
+        view_layout:
+          grid-area: footer
+        cards:
+
+          - type: custom:button-card
+            name: >
+              <ha-icon icon="mdi:nas"></ha-icon> NAS
+            tap_action:
+              !include popup/footer/nas.yaml
+            variables:
+              notify: >
+                [[[
+                  let status = states['sensor.nas_volume_1_status'],
+                    security = states['binary_sensor.nas_security_status'],
+                    disk_use = states['sensor.disk_use_percent'],
+                    nas_update = states['binary_sensor.nas_update_available'];
+                  if (status && security && disk_use && nas_update) {
+                    return nas_update.state === 'on'
+                      ? 1
+                      : status.state === 'background_scrubbing' ||
+                        security.state === 'on' ||
+                        parseFloat(disk_use.state) >= 85;
+                  }
+                ]]]
+            template: footer
+
+          - type: custom:button-card
+            name: >
+              <ha-icon icon="mdi:arrow-up-bold-circle-outline"></ha-icon> Updates
+            tap_action:
+              !include popup/footer/updater.yaml
+            variables:
+              notify: >
+                [[[
+                  let hass_installed = hass.config.version,
+                    hass_version_latest = states['sensor.hass_version_latest'],
+                    hass_version_latest_beta = states['sensor.hass_version_latest_beta'],
+                    hacs = states['sensor.hacs'];
+
+                  if (hass_version_latest && hass_version_latest.state.includes('.')
+                    && hass_version_latest_beta && hass_version_latest_beta.state.includes('.')
+                    && hacs && Number.isInteger(parseInt(hacs.state))) {
+
+                    let hass_latest = hass_installed.includes('b')
+                        ? hass_version_latest_beta.state
+                        : hass_version_latest.state,
+                      hass_count = hass_installed !== hass_latest ? 1 : 0;
+                    return hass_count + parseInt(hacs.state);
+                  }
+                  return 0;
+                ]]]
+            template: footer
+
+          - type: custom:button-card
+            name: >
+              <ha-icon icon="mdi:robot-vacuum-variant"></ha-icon> Vacuum
+            tap_action:
+              !include popup/footer/vacuum.yaml
+            variables:
+              notify: >
+                [[[
+                  let last_clean = states['sensor.morty_last_clean_end'],
+                    week_ms = 6048e5;
+                  if (last_clean) {
+                    return (Date.now() - Date.parse(last_clean.state)) > week_ms;
+                  }
+                ]]]
+            template: footer
+
+          - type: custom:button-card
+            name: >
+              <ha-icon icon="mdi:chart-line-variant"></ha-icon> History
+            tap_action:
+              !include popup/footer/history.yaml
+            template: footer
+
+          - type: custom:button-card
+            name: >
+              <ha-icon icon="mdi:tablet"></ha-icon> Tablet
+            tap_action:
+              !include popup/footer/tablet.yaml
+            variables:
+              notify: >
+                [[[
+                  let plugged_in = states['binary_sensor.galaxy_tab_a_plugged_in'];
+                  if (plugged_in) {
+                    return plugged_in.state === 'off';
+                  }
+                ]]]
+            template: footer
+
+          - type: custom:button-card
+            name: >
+              <ha-icon icon="mdi:router-wireless"></ha-icon> Router
+            tap_action:
+              !include popup/footer/router.yaml
+            variables:
+              notify: >
+                [[[
+                  let internet = states['binary_sensor.template_udm_internet'],
+                    upgradable = states['binary_sensor.template_udm_upgradable'];
+                  if (internet && upgradable) {
+                    return upgradable.state === 'on'
+                      ? 1
+                      : internet.state === 'off';
+                  }
+                ]]]
+            template: footer
