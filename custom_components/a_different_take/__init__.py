@@ -1,5 +1,7 @@
 from .const import DOMAIN
 
+from .load_dashboard import load_dashboard
+
 
 async def async_setup(hass, config):
     hass.states.async_set(DOMAIN+".world", "Dean")
