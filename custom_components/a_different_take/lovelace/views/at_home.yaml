@@ -10,8 +10,8 @@ cards:
     name: Dean
     triggers_update:
       - sensor.dean_galvin_last_changed
-    tap_action:
-      !include ../popup/at_home_dean.yaml
+        #tap_action:
+      #!include ../popup/at_home_dean.yaml
     variables:
       retain: sensor.dean_galvin_last_changed
     template: person
@@ -21,8 +21,8 @@ cards:
     name: Brittany
     triggers_update:
       - sensor.brittany_last_changed
-    tap_action:
-      !include ../popup/at_home_brittany.yaml
+        #tap_action:
+        #  !include ../popup/at_home_brittany.yaml
     variables:
       retain: sensor.brittany_last_changed
     template: person

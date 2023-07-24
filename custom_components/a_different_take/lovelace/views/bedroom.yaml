@@ -8,8 +8,8 @@ cards:
   - type: custom:button-card
     entity: climate.thermostat
     name: Climate
-    tap_action:
-      !include ../popup/bedroom_climate.yaml
+    #tap_action:
+      #!include ../popup/bedroom_climate.yaml
     template:
       - base
       - icon_climate

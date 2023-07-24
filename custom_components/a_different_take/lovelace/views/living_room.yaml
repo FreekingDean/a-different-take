@@ -29,8 +29,8 @@ cards:
           return variables.translate_unknown;
         }
       ]]]
-    hold_action:
-      !include ../popup/living_room_tv.yaml
+      #hold_action:
+      #!include ../popup/living_room_tv.yaml
     template:
       - base
       - icon_tv
