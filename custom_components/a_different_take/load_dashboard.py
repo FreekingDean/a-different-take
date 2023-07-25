@@ -19,6 +19,7 @@ def load_dashboard(hass, config_entry):
 
     dashboard_url = "a-different-take"
     dashboard_config = {
+        "id": "a_different_take",
         "mode": "storage",
         "icon": sidepanel_icon,
         "title": sidepanel_title,
