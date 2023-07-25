@@ -22,7 +22,7 @@ def load_dashboard(hass, config_entry):
         "mode": "storage",
         "icon": sidepanel_icon,
         "title": sidepanel_title,
-        "url": dashboard_url,
+        "url_path": dashboard_url,
         "show_in_sidebar": True,
         "require_admin": False,
         "theme": "tablet",
