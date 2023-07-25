@@ -19,14 +19,25 @@ def load_dashboard(hass, config_entry):
 
     dashboard_url = "a-different-take"
     dashboard_config = {
-        "mode": "yaml",
+        "mode": "storage",
         "icon": sidepanel_icon,
         "title": sidepanel_title,
-        "filename": "custom_components/a_different_take/lovelace/ui-lovelace.yaml",
+        "url": dashboard_url,
         "show_in_sidebar": True,
         "require_admin": False,
+        "theme": "tablet",
+        "views": [
+            {
+                "type": "custom:grid-layout",
+                "theme": "tablet",
+                "path": 0,
+                "layout": {
+                    "margin": 0,
+                },
+            },
+        ],
     }
 
-    hass.data["lovelace"]["dashboards"][dashboard_url] = LovelaceYAML(hass, dashboard_url, dashboard_config)
+    hass.data["lovelace"]["dashboards"][dashboard_url] = LovelaceStorage(hass, dashboard_url, dashboard_config)
 
-    _register_panel(hass, dashboard_url, "yaml", dashboard_config, False)
+    _register_panel(hass, dashboard_url, "storage", dashboard_config, False)
