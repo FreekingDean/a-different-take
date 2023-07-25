@@ -1,4 +1,8 @@
+import voluptuous as vol
+
 from homeassistant import config_entries
+from homeassistant.core import callback
+
 from .const import DOMAIN
 
 SIDEPANEL_TITLE = "sidepanel_title"

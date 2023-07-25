@@ -1,6 +1,6 @@
 import logging
 
-from homeassistant.components.lovelace.dashboard import LovelaceYAML
+from homeassistant.components.lovelace.dashboard import LovelaceStorage
 from homeassistant.components.lovelace import _register_panel
 
 from .const import DOMAIN
