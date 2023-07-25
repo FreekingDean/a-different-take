@@ -38,6 +38,6 @@ def load_dashboard(hass, config_entry):
         ],
     }
 
-    hass.data["lovelace"]["dashboards"][dashboard_url] = LovelaceStorage(hass, dashboard_url, dashboard_config)
+    hass.data["lovelace"]["dashboards"][dashboard_url] = LovelaceStorage(hass, dashboard_config)
 
     _register_panel(hass, dashboard_url, "storage", dashboard_config, False)
