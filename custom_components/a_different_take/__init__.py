@@ -1,4 +1,5 @@
 from .const import DOMAIN
+from homeassistant.config_entries import ConfigEntry
 
 from .load_dashboard import load_dashboard
 
